@@ -54,6 +54,26 @@ public:
         a->next=newnode;
     }
 
+    void InsertAtTail(int value){
+        Insert(sz,value);
+    }
+
+    void InsertAfterValue(int value,int data){
+        node *a=head;
+        while(a!=NULL){
+            if(a->data==value){
+                break;
+            }
+            a=a->next;
+        }
+        if(a!=NULL){
+            node *newnode=CreateNewNode(data);
+            newnode->next=a->next;
+            a->next=newnode;
+        }
+        
+    }
+
     void DeleteHead(){
         if (head==NULL)return; //corner case
         sz--; //size maintain
@@ -78,6 +98,10 @@ public:
         delete temp;
     }
 
+    void DeleteAtTail(){
+        Delete(sz-1);
+    }
+
     void Travers(){
         node * travers=head;
         while(travers!=NULL){
@@ -100,6 +124,7 @@ public:
         }
         return -1;
     }
+    
     vector<int> SearchAllOccurance(int value){
         node *a=head;
         int index=0;
@@ -134,6 +159,41 @@ public:
     void PrintSize(){
         cout<<"List Size Is: "<<sz<<endl;
     }
+
+    void Reverse(){
+        node *a=head;
+        node *temp2;
+        while(a!=NULL){
+            node *temp=a->next;
+            if(a==head){
+                a->next=NULL;
+            }else{
+                a->next=temp2;
+            }
+            temp2=a;
+            a=temp;
+        }
+        head=temp2;
+    }
+
+    void Sorting(){
+        node *a=head;
+        vector<int>arr;
+        while(a!=NULL){
+            arr.push_back(a->data);
+            a=a->next;
+        }
+        sort(arr.begin(),arr.end());
+        int ind=0;
+        a=head;
+        while(a!=NULL){
+            a->data=arr[ind]; 
+            ind++;
+            a=a->next;
+        }
+
+    }
+        
 
 };
 
@@ -184,5 +244,48 @@ int main(){
     llist.Travers();
     llist.PrintSize();
 
+    llist.InsertAtTail(5);
+    llist.Travers();
+    llist.PrintSize();
+
+    llist.DeleteAtTail();
+    llist.Travers();
+    llist.PrintSize();
+
+    llist.InsertAfterValue(10,5);
+    llist.Travers();
+    llist.PrintSize();
+
+    llist.InsertAfterValue(2,1);
+    llist.Travers();
+    llist.PrintSize();
+
+    llist.Reverse();
+    llist.Travers();
+    llist.InsertAtTail(40);
+    llist.Travers();
+
+    llist.Sorting();
+    llist.Travers();
+
     return 0;
 }
+
+/*
+1. Insert At Heat
+2. Insert At any Position
+3. Insert At Tail
+4. Delete Head
+5. Delete At any Position
+6. Delete At Tail
+7. Search First Occurance
+8. Search All Occurance
+9. Print All Occurance
+10. List Size
+11. Print Size
+12. Travers
+13. Insert after value
+14. Reverse
+15. Sorting 
+
+*/
